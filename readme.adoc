@@ -1,0 +1,83 @@
+:toc:
+:sectnums:
+:toclevels: 5
+:sectnumlevels: 5
+:showcomments:
+:xrefstyle: short
+:icons: font
+:source-highlighter: coderay
+:tick: &#x2714;
+:pound: &#xA3;
+
+= Useful wmic commands
+
+== CPU
+
+----
+wmic cpu get * /format:list
+wmic cpu get NumberOfCores,NumberOfLogicalProcessors /format:List
+---- 
+
+== Memory
+
+----
+wmic memorychip get *
+wmic memorychip get * /format:list
+wmic memorychip get devicelocator, manufacturer
+wmic memorychip get devicelocator, serialnumber
+----
+
+=== Get memory capacity
+
+----
+wmic memorychip get devicelocator, capacity
+----
+
+== Disk
+
+----
+wmic diskdrive get Name, Manufacturer, Model, InterfaceType, MediaType, SerialNumber
+wmic diskdrive get name,model,size
+----
+
+== Motherboard
+
+----
+wmic baseboard get product,Manufacturer,version,serialnumber
+----
+
+== Bluetooth
+
+----
+wmic path win32_pnpentity where service="BTHUSB" get /format:list
+----
+
+== Powerplan
+
+WARNING: The namespace may be different on different versions of Windows. The example below
+works for Windows 10.
+
+----
+wmic /namespace:\\root\cimv2\power PATH Win32_PowerPlan get * /format:list
+----
+
+== GPU
+
+----
+wmic PATH Win32_VideoController get * /format:list
+----
+
+== Cooling Fan
+
+This may not work as it depends on your BIOS.
+
+----
+wmic /namespace:\\root\cimv2\power PATH Win32_PowerPlan get * /format:list
+----
+
+[source,csharp]
+----
+using System;
+using System.Text;
+----
+
